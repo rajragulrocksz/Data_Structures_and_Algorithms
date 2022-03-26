@@ -1,3 +1,8 @@
+from unittest import case
+
+from pytz import NonExistentTimeError
+
+
 class Node:
     def __init__(self,value) :
         self.value =value
@@ -5,11 +10,11 @@ class Node:
         self.prev = None
 
 class Double_Linked_List:
-    def __init__(self,value):
-        new_node = Node(value)
-        self.head=new_node
-        self.tail=new_node
-        self.length=1
+    def __init__(self):
+        #new_node = Node(value)
+        self.head=None
+        self.tail=None
+        self.length=0 
 
     def append(self,value):
         new_node=Node(value)
@@ -73,33 +78,81 @@ class Double_Linked_List:
             for i in range(self.length-1,index,-1):
                 print("exec")
                 temp=temp.prev
-        return temp.value
+        return temp
+    def set_value(self,index,value):
+        temp=self.get(index)
+        if temp is not None:
+            temp.value=value
+            return True
+        return False
+    def insert(self,index,value):
+        if index < 0 or index>self.length:
+            return None
+        new_node = Node(value)
+        if index==0:
+            self.prepend(value)
+            return True
+        if index==self.length:
+            self.append(value)
+            return True
+        before_node=self.get(index-1)
+        after_node=before_node.next
+        new_node.next=after_node
+        new_node.prev=before_node
+        before_node.next=new_node
+        after_node.prev=new_node
+        return True
+
 
     def printlist(self):
         temp=self.head
         while temp is not None:
             print(temp.value)
             temp=temp.next
+        
 
-dll=Double_Linked_List(7)
-print("Appending Data")
-dll.append(2)
-dll.append(6)
-dll.append(10)
-print("Append Result")
-dll.printlist()
-s=dll.pop()
-print("Pop Data & List : ",s)
-dll.printlist()
-dll.prepend('55')
-dll.prepend('58')
-dll.prepend(10)
-print("Prepend Result")
-dll.printlist() 
-s=dll.popfirst()
-print("pop-first_element:",s,"\nRemaining Elements")
-dll.printlist()
-s=dll.get(2)
-print("Get Element at index 2",s)
+dll=Double_Linked_List()
+while True:
+    print("Doubly Linked List Operations:----------------------")
+    print("\n1.Append\n2.Prepend\n3.pop\n4.popfirst\n5.GetValue\n6.SetValue\n7.Insert\n8.Print_List\n9.List_Length\n10.Exit\nChoose an Operation:")
+    n=int(input())
+    if n==1:
+        value=int(input("Enter value to Append : "))
+        dll.append(value)
+    elif n==2:
+        value=int(input("Enter value to Prepend : "))
+        dll.prepend(value)
+    elif n==3:
+        res=dll.pop()
+        print("popped value",res)
+    elif n==4:
+        res=dll.popfirst()
+        print("popfirst value",res)
+    elif n==5:
+        index=int(input("Enter index to get Value: "))
+        res=dll.get(index)
+        print("Element at index",index,"is : ",res.value)
+    elif n==6:
+        i,v=input("Enter index,value for Setting : ").split()
+        dll.set_value(int(i),int(v))
+    elif n==7:
+        i,v=input("Enter index,value for Inserting : ").split()
+        dll.insert(int(i),int(v))
+    elif n==8:
+        print("Elements in the list are :-----------")
+        dll.printlist()
+        break
+    elif n==9:
+        print("Length of the List : ",dll.length)
+        break
+    elif n==10:
+        break
+    else:
+        print("Enter a Valid Option")
+        print("\n\n\n")
+        break
+    print("Elements in the list are :-----------")
+    dll.printlist()
+        
 
 
