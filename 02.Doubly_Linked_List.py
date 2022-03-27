@@ -1,7 +1,3 @@
-from unittest import case
-
-from pytz import NonExistentTimeError
-
 
 class Node:
     def __init__(self,value) :
@@ -101,7 +97,27 @@ class Double_Linked_List:
         new_node.prev=before_node
         before_node.next=new_node
         after_node.prev=new_node
+        self.length+=1
         return True
+    def remove(self,index):
+        if index < 0 or index >=self.length:
+            return None
+        if index ==0:
+            a=self.popfirst()
+            return a
+        if index ==self.length-1:
+            a=self.pop()
+            return a
+        temp=self.get(index)
+        before=temp.prev
+        after =temp.next
+        before.next=after
+        after.prev=before
+        temp.prev=None
+        temp.next=None
+        self.length-=1
+        return temp.value
+
 
 
     def printlist(self):
@@ -114,7 +130,7 @@ class Double_Linked_List:
 dll=Double_Linked_List()
 while True:
     print("Doubly Linked List Operations:----------------------")
-    print("\n1.Append\n2.Prepend\n3.pop\n4.popfirst\n5.GetValue\n6.SetValue\n7.Insert\n8.Print_List\n9.List_Length\n10.Exit\nChoose an Operation:")
+    print("\n1.Append\n2.Prepend\n3.pop\n4.popfirst\n5.GetValue\n6.SetValue\n7.Insert\n8.Remove\n9.Print_List\n10.List_Length\n11.Exit\nChoose an Operation:")
     n=int(input())
     if n==1:
         value=int(input("Enter value to Append : "))
@@ -139,20 +155,24 @@ while True:
         i,v=input("Enter index,value for Inserting : ").split()
         dll.insert(int(i),int(v))
     elif n==8:
+        index=int(input("Enter index to remove Value: "))
+        print("Removed Item :",dll.remove(index))
+        
+    elif n==9:
         print("Elements in the list are :-----------")
         dll.printlist()
         break
-    elif n==9:
+    elif n==10:
         print("Length of the List : ",dll.length)
         break
-    elif n==10:
+    elif n==11:
         break
     else:
         print("Enter a Valid Option")
         print("\n\n\n")
         break
-    print("Elements in the list are :-----------")
+    print("Elements in the list are :---------")
     dll.printlist()
-        
+   
 
 
