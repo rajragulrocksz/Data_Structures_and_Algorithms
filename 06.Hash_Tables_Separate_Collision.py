@@ -1,6 +1,3 @@
-from multiprocessing.sharedctypes import Value
-
-
 class HashTable:
 
     def __init__(self,size=7):
