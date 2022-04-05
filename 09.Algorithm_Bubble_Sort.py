@@ -1,6 +1,7 @@
 def bubble_sort(my_list):
-    for i in range(0,len(my_list)-1):
-        for j in range(len(my_list)-1-i):
+    for i in range(len(my_list)-1,0,-1):
+        print("Level",i)
+        for j in range(i):
             if my_list[j+1] < my_list[j] :
                 my_list[j],my_list[j+1] = my_list[j+1],my_list[j]
                 
