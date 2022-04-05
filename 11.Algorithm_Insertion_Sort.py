@@ -1,6 +1,3 @@
-from tempfile import tempdir
-
-
 def insertion_sort(my_list):
     for i in range(1,len(my_list)):
         print("Level",i)
